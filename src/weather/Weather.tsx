@@ -2,6 +2,7 @@ import {
   AppBar,
   Avatar,
   Box,
+  CircularProgress,
   Stack,
   TextField,
   Typography,
@@ -24,16 +25,21 @@ function Weather() {
   const { search, setSearch } = CustomSearch();
   const { data, setData } = CustomData();
   const { error, setError } = CustomError();
+  const [loader, setLoader] = useState(false);
   useEffect(() => {
     let timer;
+    setLoader(true);
     if (search.length > 0) {
       timer = setTimeout(() => {
         apicall(search, setData, setError);
+        setLoader(false);
       }, 1000);
     } else {
       setError("");
       setData(undefined);
+      setLoader(false);
     }
+    console.log(data);
     return () => clearTimeout(timer);
   }, [search]);
   return (
@@ -60,6 +66,7 @@ function Weather() {
         value={search}
         onChange={(e) => handleChange(e, setSearch)}
       />
+      {loader && <CircularProgress color="warning" sx={{ mx: 10 }} />}
       {data ? (
         <>
           <Typography
