@@ -39,9 +39,9 @@ function Weather() {
       setData(undefined);
       setLoader(false);
     }
-    console.log(data);
     return () => clearTimeout(timer);
   }, [search]);
+  console.log(data);
   return (
     <Box
       component={"div"}

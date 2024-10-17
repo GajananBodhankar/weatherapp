@@ -28,9 +28,11 @@ async function apicall(city, setData, setError) {
       setError("");
       setData(response.data);
     }
+    console.log(response, "response");
   } catch (e) {
     setError("No matching Location found");
     setData(undefined);
+    console.log(e, "e");
   }
 
   //  OR
